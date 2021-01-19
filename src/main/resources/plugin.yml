@@ -1,0 +1,5 @@
+name: ConnectionListener
+main: xyz.acrylicstyle.connectionListener.ConnectionListenerPlugin
+version: 1.0.0
+loadbefore:
+  - ViaVersion
