@@ -49,7 +49,7 @@ public class ConnectionListenerConfig {
         sb.append("\n");
         sb.append("proxy_protocol:\n");
         sb.append("    Sets whether enables PROXY protocol for usage from HAProxy etc.\n");
-        sb.append("    **HAProxy features will be disabled if it is set to false.**");
+        sb.append("    **HAProxy features will be disabled if it is set to false.**\n");
         sb.append("    (Default: false)\n");
         sb.append("server_ip:\n");
         sb.append("    Set specific server IP / Hostname when you have multiple NICs.\n");
