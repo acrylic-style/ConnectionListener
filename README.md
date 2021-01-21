@@ -6,7 +6,17 @@ A plugin to allow creating multiple listeners (listening ports)
 - Able to listen connections on multiple ports
 - Comes with HAProxy support
 
-Configuration file
+## How do I use this?
+- Install the plugin (obviously)
+- You have to edit plugins/ConnectionListener/config.yml to make it work (plugin itself doesn't do anything without a config)
+- Start the server and make sure you see no errors on startup
+- Have fun! (but don't reload the plugin or don't do /reload, it will break the plugin)
+
+## Important Note
+- You cannot execute `/reload` after the server has fully startup. You'll receive no support for doing this.
+- Loading the plugin after the server has fully started up might not work well (such as ViaVersion)
+
+Configuration file (example)
 ----
 ```yaml
 # Welcome to ConnectionListener configuration file!
