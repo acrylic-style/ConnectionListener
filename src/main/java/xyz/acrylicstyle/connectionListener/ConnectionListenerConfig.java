@@ -53,6 +53,7 @@ public class ConnectionListenerConfig {
         sb.append("    (Default: false)\n");
         sb.append("server_ip:\n");
         sb.append("    Set specific server IP / Hostname when you have multiple NICs.\n");
+        sb.append("    This option does exactly same thing as server-ip in server.properties.\n");
         sb.append("    (Requires proxy_protocol to work.)\n");
         sb.append("    (Default: 'null')\n");
         sb.append("port:\n");
@@ -78,6 +79,7 @@ public class ConnectionListenerConfig {
         sb.append("    Whether to use reflection-based channel initializer when creating HAProxy-enabled\n");
         sb.append("    packet listener.\n");
         sb.append("    This setting has no effect when replacing main server port with HAProxy-enabled listener.\n");
+        sb.append("    You will need to enable this option if you are running on java 12+.\n");
         sb.append("    (Requires proxy_protocol to work.)\n");
         sb.append("    (Default: false)\n");
         config.options().header(sb.toString());

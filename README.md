@@ -35,9 +35,11 @@ Configuration file (example)
 # 
 # proxy_protocol:
 #     Sets whether enables PROXY protocol for usage from HAProxy etc.
-#     **HAProxy features will be disabled if it is set to false.**    (Default: false)
+#     **HAProxy features will be disabled if it is set to false.**
+#     (Default: false)
 # server_ip:
 #     Set specific server IP / Hostname when you have multiple NICs.
+#     This option does exactly same thing as server-ip in server.properties.
 #     (Requires proxy_protocol to work.)
 #     (Default: 'null')
 # port:
@@ -63,6 +65,7 @@ Configuration file (example)
 #     Whether to use reflection-based channel initializer when creating HAProxy-enabled
 #     packet listener.
 #     This setting has no effect when replacing main server port with HAProxy-enabled listener.
+#     You will need to enable this option if you are running on java 12+.
 #     (Requires proxy_protocol to work.)
 #     (Default: false)
 
