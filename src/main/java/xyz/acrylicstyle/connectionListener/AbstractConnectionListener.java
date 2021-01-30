@@ -191,6 +191,7 @@ public abstract class AbstractConnectionListener extends JavaPlugin {
                 }
                 ChannelInitializer<SocketChannel> initializer = new NettyVanillaChannelInitializer(minecraftServer, serverConnection);
                 if (info.isProxyProtocol()) initializer = new NettyHAProxyChannelInitializer(initializer);
+                futures.get(0).channel().close(); // close old channel
                 ChannelFuture future = new ServerBootstrap().channel(clazz)
                         .childHandler(initializer)
                         .group(lazyInitVar.get())
