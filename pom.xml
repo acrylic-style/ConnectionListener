@@ -6,7 +6,7 @@
 
     <groupId>xyz.acrylicstyle</groupId>
     <artifactId>ConnectionListener</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <build>
         <finalName>ConnectionListener</finalName>

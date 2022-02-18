@@ -39,19 +39,25 @@ public abstract class AbstractConnectionListener extends JavaPlugin {
     protected final List<Channel> channels = new ArrayList<>();
 
     static {
-        Class<?> class1 = null;
-        Class<?> class2 = null;
-        Class<?> class3 = null;
-        Method method1 = null;
+        Class<?> class1;
+        Class<?> class2;
+        Class<?> class3;
+        Method method1;
         Method method2 = null;
         try {
             class1 = Class.forName(ReflectionUtil.nms("MinecraftServer"));
             class2 = Class.forName(ReflectionUtil.nms("ServerConnection"));
             class3 = Class.forName(ReflectionUtil.nms("NetworkManager"));
             method1 = class1.getDeclaredMethod("getServer");
-            method2 = class1.getDeclaredMethod("getServerConnection");
+            for (Method method : class1.getMethods()) {
+                if (method.getReturnType() != class2) continue;
+                if (method.getParameterCount() != 0) continue;
+                method2 = method;
+                break;
+            }
+            if (method2 == null) throw new RuntimeException("Could not find getServerConnection method");
         } catch (ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         MinecraftServer = class1;
         ServerConnection = class2;

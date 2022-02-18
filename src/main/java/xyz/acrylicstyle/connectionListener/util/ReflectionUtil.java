@@ -29,13 +29,30 @@ public class ReflectionUtil {
     @SuppressWarnings("unused")
     public static String getCraftBukkitPackage() { return "org.bukkit.craftbukkit." + getServerVersion(); }
 
+    public static boolean is1_17() {
+        String[] split = getServerVersion().split("_");
+        int major = Integer.parseInt(split[0].replace("v", ""));
+        int minor = Integer.parseInt(split[1]);
+        if (major == 1 && minor >= 17) return true;
+        return major > 1;
+    }
+
     /**
      * Get net.minecraft.server package.
      * @return net.minecraft.server package
      */
-    public static String getNMSPackage() { return "net.minecraft.server." + getServerVersion(); }
+    public static String getNMSPackage() {
+        return "net.minecraft.server." + getServerVersion();
+    }
 
-    public static String nms(String clazz) { return getNMSPackage() + "." + clazz; }
+    public static String nms(String clazz) {
+        if (is1_17()) {
+            if ("MinecraftServer".equals(clazz)) return "net.minecraft.server.MinecraftServer";
+            if ("ServerConnection".equals(clazz)) return "net.minecraft.server.network.ServerConnection";
+            if ("NetworkManager".equals(clazz)) return "net.minecraft.network.NetworkManager";
+        }
+        return getNMSPackage() + "." + clazz;
+    }
 
     public static Field getListeningChannelField() throws ReflectiveOperationException {
         String s = getServerVersion();
@@ -53,6 +70,8 @@ public class ReflectionUtil {
             case "v1_13_R1":
             case "v1_13_R2":
             case "v1_14_R1":
+            case "v1_17_R1":
+            case "v1_18_R1":
                 return ConnectionListenerPlugin.ServerConnection.getDeclaredField("f");
             case "v1_15_R1":
                 try {
@@ -61,8 +80,9 @@ public class ReflectionUtil {
                 } catch (NoSuchFieldException ex) {
                     return ConnectionListenerPlugin.ServerConnection.getDeclaredField("f");
                 }
-            default:
+            case "v1_16_R3":
                 return ConnectionListenerPlugin.ServerConnection.getDeclaredField("listeningChannels");
+            default: throw new UnsupportedOperationException("Unsupported version " + s);
         }
     }
 
@@ -82,9 +102,13 @@ public class ReflectionUtil {
             case "v1_13_R1":
             case "v1_13_R2":
             case "v1_14_R1":
+            case "v1_17_R1":
+            case "v1_18_R1":
                 return ConnectionListenerPlugin.ServerConnection.getDeclaredField("g");
-            default:
+            case "v1_15_R1":
+            case "v1_16_R3":
                 return ConnectionListenerPlugin.ServerConnection.getDeclaredField("connectedChannels");
+            default: throw new UnsupportedOperationException("Unsupported version " + s);
         }
     }
 
